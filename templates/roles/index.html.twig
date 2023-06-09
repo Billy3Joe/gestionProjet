@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des rôles{% endblock %}
+
+{% block body %}
+
+
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Gestion des rôles</h6>
+          <a href="{{ path('roles_new') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm float-right"><i class="fas fa-plus fa-sm text-white-50"></i> Attribuer un rôle</a>
+  
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Utilisateur</th>
+                            <th>Édition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for role in roles %}
+                        <tr>
+                            <td>{% if role.nom == "ROLE_ADMIN" %}Manager  {% else %} Administrateur {% endif %}</td>
+                            <td>
+                                <ul>
+                                {% for user in role.user %}
+                                    <li>{{ user.prenom }}</li>
+                                {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <a href="{{ path('roles_edit', {'id': role.id}) }}" class="btn btn-info"><i class="fas fa-edit"></i>Éditer</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="3">Liste vide</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  
+
+
+
+
+ 
+{% endblock %}

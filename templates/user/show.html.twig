@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes informations{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Mes informations</h6>
+            <span class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm float-right">{{ include('user/_delete_form.html.twig') }}</span>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ user.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th>
+                        <td>{{ user.prenom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    {% if user.userRoles is not empty %}
+                    <tr>
+                        <th>Rôle</th>
+                        {% for role in user.userRoles  %}
+                            <td>{% if role.nom == "ROLE_ADMIN" %}Manageur {% elseif role.nom == "ROLE_SUPER_ADMIN" %} Administrateur  {% endif %}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <td><a href="{{ path('user_edit', {'id': user.id}) }}" class="d-none d-sm-inline-block btn btn-info shadow-sm"><i class="fas fa-edit"></i> Mettre à jour</a></td>
+                         
+                         <td><a href="{{ path('change_password' , {'id': app.user.id }) }}" class="btn btn-warning btn-icon-split">
+                            <span class="icon text-white-50"><i class="fas fa-exclamation-triangle"></i></span>
+                            <span class="text">Modifier mon mot de passe</span> 
+                        </a></td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <a href="{{ path('home') }}" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-gray-600">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Retour</span>
+    </a>
+  
+
+{% endblock %}

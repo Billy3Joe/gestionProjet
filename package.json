@@ -1,0 +1,17 @@
+{
+    "name": "Gestion Projet",
+    "version": "1.0.0",
+    "description": "Cette application nous permet de gérer tout type de projet",
+    "main": "index.js",
+    "scripts": {
+      "start": "node index.js",
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Billy Joe",
+    "license": "Licence du projet",
+    "dependencies": {
+      "express": "^4.17.1",
+      "lodash": "^4.17.21"
+    }
+  }
+  

@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des groupes{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Liste des groupes</h6>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" id="dataTable"  width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Visualisation</th>
+                        <th>Éditer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for group in groups %}
+                    <tr>
+                        <td>{{ group.nom }}</td>
+                        <td>
+                            <a href="{{ path('group_show', {'id': group.id}) }}" class="btn btn-warning"><i class="fas fa-search"></i>Voir</a>
+                        </td>
+                        {% if group.project.createur == app.user or  (is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted("ROLE_ADMIN")) %}
+                        <td>    
+                            <a href="{{ path('group_edit', {'id': group.id}) }}" class="btn btn-info"><i class="fas fa-edit"></i>Éditer</a>
+                        </td>
+                        {% else %}
+                        <td>
+                            Vous n'êtes pas autorisé(e) à modifier ce groupe
+                        </td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Liste vide</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <a href="{{ path('home') }}" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-gray-600">
+            <i class="fas fa-arrow-left"></i>
+        </span>
+        <span class="text">Retour</span>
+    </a>
+
+
+
+{% endblock %}
